@@ -1,0 +1,9 @@
+@import url('./base/reset.css');
+@import url('./barra-navegacion/barra-navegacion.css');
+@import url('./cuerpo/cuerpo.css');
+@import url('./temas/temas.css');
+@import url('./responsive/mobile.css');
+@import url('./responsive/tablet.css');
+@import url('./responsive/desktop.css');
+@import url('./chat/chat.css');
+@import url('./personajes/personajes.css');

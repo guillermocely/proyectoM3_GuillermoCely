@@ -1,0 +1,26 @@
+/* Tablet */
+@media (min-width: 768px) {
+  body {
+    padding: 1.25rem;
+  }
+
+  .site-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  main {
+    padding: 2rem;
+    padding-top: 100px;
+  }
+
+  .nav-btn {
+    margin-left: 1rem;
+  }
+
+  /* Chat responsive */
+  .chat-shell {
+    width: min(calc(100% - 2.5rem), 420px);
+  }
+}

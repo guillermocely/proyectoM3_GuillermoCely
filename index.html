@@ -31,5 +31,17 @@
 
   <!-- Módulo ES6 como punto de entrada -->
   <script type="module" src="src/main.js"></script>
+   <!-- Water ripple effect scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="jquery.ripples.min.js"></script>
+  <script>
+    jQuery(document).ready(function( $ ) {
+        $('body').ripples({
+            resolution: 512,
+            dropRadius: 20,
+            perturbance: 0.01,
+        });
+    });
+  </script>
 </body>
 </html>

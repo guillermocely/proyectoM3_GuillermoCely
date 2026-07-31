@@ -8,8 +8,5 @@ body {
   font-family: system-ui, sans-serif;
   margin: 0;
   transition: background-color 0.3s, color 0.3s;
-  background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1920');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }

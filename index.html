@@ -31,17 +31,64 @@
 
   <!-- Módulo ES6 como punto de entrada -->
   <script type="module" src="src/main.js"></script>
-   <!-- Water ripple effect scripts -->
+   <!-- Water ripple effect -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="jquery.ripples.min.js"></script>
   <script>
     jQuery(document).ready(function( $ ) {
-        $('body').ripples({
-            resolution: 512,
-            dropRadius: 20,
-            perturbance: 0.04,
-            interactive: true
+        // Crear canvas para efecto ripple
+        var $canvas = $('<canvas>').css({
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            pointerEvents: 'none',
+            zIndex: 0
         });
+        $('body').prepend($canvas);
+        
+        var canvas = $canvas[0];
+        var ctx = canvas.getContext('2d');
+        var ripples = [];
+        
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        $(window).on('resize', resize);
+        
+        $('body').on('mousemove', function(e) {
+            ripples.push({
+                x: e.clientX,
+                y: e.clientY,
+                radius: 0,
+                alpha: 1
+            });
+        });
+        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            ripples.forEach(function(ripple, index) {
+                ripple.radius += 2;
+                ripple.alpha -= 0.02;
+                
+                if (ripple.alpha <= 0) {
+                    ripples.splice(index, 1);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
+                    ctx.strokeStyle = 'rgba(255, 255, 255, ' + ripple.alpha + ')';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                }
+            });
+            
+            requestAnimationFrame(animate);
+        }
+        animate();
     });
   </script>
 </body>

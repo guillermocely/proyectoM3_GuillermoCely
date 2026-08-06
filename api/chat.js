@@ -40,7 +40,11 @@ export default async function handler(req, res) {
       ? `${systemInstruction}\n\nUsuario: ${prompt}`
       : prompt;
 
-    const result = await model.generateContent(fullPrompt);
+    const result = await model.generateContent(fullPrompt, {
+      generationConfig: {
+        maxOutputTokens: 107
+      }
+    });
     const response = await result.response;
     const text = response.text();
 

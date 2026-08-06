@@ -42,7 +42,8 @@ export default async function handler(req, res) {
 
     const result = await model.generateContent(fullPrompt, {
       generationConfig: {
-        maxOutputTokens: 107
+        maxOutputTokens: 107,
+        temperature: 0.6
       }
     });
     const response = await result.response;

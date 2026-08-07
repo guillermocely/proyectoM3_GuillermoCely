@@ -9,11 +9,11 @@ export function formatTime(date = new Date()) {
 }
 
 export function buildMessages(history, character) {
-  const systemPrompt = character?.systemPrompt || 'Eres un asistente útil.';
+  const systemInstruction = character?.systemInstruction || 'Eres un asistente útil.';
   return [
     {
       role: 'system',
-      content: systemPrompt
+      content: systemInstruction
     },
     ...history.map((message) => ({
       role: message.role,

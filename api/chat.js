@@ -39,7 +39,9 @@ export default async function handler(req, res) {
       generationConfig: {
         maxOutputTokens: 100,
         temperature: 0.6,
-        candidateCount: 1
+        candidateCount: 1,
+        topK: 40,
+        topP: 0.95
       }
     });
     const response = await result.response;

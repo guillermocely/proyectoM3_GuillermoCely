@@ -26,23 +26,22 @@ export default async function handler(req, res) {
   try {
     const genAI = new GoogleGenerativeAI(apiKey);
     
-    // CORRECCIÓN AQUÍ: Los parámetros se configuran al inicializar el modelo
     const model = genAI.getGenerativeModel({
       model: 'gemini-3.5-flash-lite',
-      generationConfig: {
-        maxOutputTokens: 100, // Limita estrictamente la longitud de la respuesta
-        temperature: 0.6,      // Controla la creatividad/sensibilidad
-        candidateCount: 1
-      },
-      // MEJORA: Pasar las instrucciones del sistema de forma nativa en lugar de concatenarlas en el prompt
       systemInstruction: systemInstruction || undefined 
     });
 
     const lastUserMessage = messages.filter(m => m.role === 'user').pop();
     const prompt = lastUserMessage?.content || '';
 
-    // Ahora pasas únicamente el texto del usuario limpio
-    const result = await model.generateContent(prompt);
+    // Configurar límite de tokens en la llamada generateContent
+    const result = await model.generateContent(prompt, {
+      generationConfig: {
+        maxOutputTokens: 100,
+        temperature: 0.6,
+        candidateCount: 1
+      }
+    });
     const response = await result.response;
     const text = response.text();
 

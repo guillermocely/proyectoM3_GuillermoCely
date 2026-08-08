@@ -40,7 +40,7 @@ export default async function handler(req, res) {
     formattedMessages.push({ role: 'user', content: prompt });
 
     const completion = await client.chat.send({
-      model: 'google/gemini-2.0-flash-exp',
+      model: 'google/gemini-flash-1.5',
       messages: formattedMessages,
       temperature: 0.6,
       max_tokens: 100

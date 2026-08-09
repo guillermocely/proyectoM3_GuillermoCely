@@ -14,6 +14,9 @@ export default async function handler(req, res) {
   if (!messages?.length || !characterId) return res.status(400).json({ error: 'Datos incompletos' });
 
   try {
+    console.log('🔗 Usando OpenRouter API con OpenAI SDK');
+    console.log('📊 Modelo: google/gemini-2.5-flash');
+    
     const openai = new OpenAI({
       baseURL: "https://openrouter.ai",
       apiKey: apiKey,

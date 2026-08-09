@@ -45,6 +45,10 @@ export default async function handler(req, res) {
     const text = completion.choices?.[0]?.message?.content || '';
     const usage = completion.usage;
 
+    console.log('✅ Respuesta exitosa de OpenRouter');
+    console.log('📝 Texto:', text);
+    console.log('📊 Usage:', usage);
+
     return res.status(200).json({
       reply: text.trim(),
       usage: {
@@ -54,7 +58,8 @@ export default async function handler(req, res) {
       }
     });
   } catch (error) {
-    console.error('Error en OpenRouter:', error);
+    console.error('❌ Error en OpenRouter:', error);
+    console.error('📋 Detalles del error:', error.message);
     return res.status(500).json({ error: 'Error al conectar con el modelo.', details: error.message });
   }
 }

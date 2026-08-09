@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,19 +10,21 @@
 <body>
 
   <header class="site-header">
-    <h1 class="animated-title">
-      Aiflowix
-      <span class="hover-text" data-text="Aiflowix">Aiflowix</span>
-    </h1>
+    <div class="header-top">
+      <h1 class="animated-title">
+        Aiflowix
+        <span class="hover-text" data-text="Aiflowix">Aiflowix</span>
+      </h1>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+        🌙
+      </button>
+    </div>
     <!-- data-link marca estos como navegación interna de la SPA -->
     <nav class="main-nav">
       <a href="/" class="nav-btn">Home</a>
       <a href="/characters" class="nav-btn">Personajes</a>
       <a href="/about" class="nav-btn">About</a>
     </nav>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
-      🌙
-    </button>
   </header>
 
   <!-- Este es el único contenedor que JavaScript va a reescribir -->

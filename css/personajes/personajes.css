@@ -122,3 +122,98 @@
     transform: translateY(-2px);
     box-shadow: 0 6px 16px color-mix(in srgb, var(--char-color) 40%, transparent);
 }
+
+/* ============================================================
+   RESPONSIVE - TARJETAS DE PERSONAJES
+   ============================================================ */
+
+/* Móvil - hasta 480px: 1 columna */
+@media (max-width: 480px) {
+  .character-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin: 32px auto;
+    padding: 0 16px 60px;
+  }
+
+  .character-card {
+    height: 340px;
+  }
+
+  .character-avatar {
+    width: 110px;
+    height: 110px;
+  }
+
+  .character-name {
+    font-size: 1.25rem;
+  }
+
+  .character-real {
+    font-size: 0.85rem;
+  }
+
+  .character-hint {
+    font-size: 0.7rem;
+    padding: 5px 10px;
+  }
+
+  .character-description {
+    font-size: 0.9rem;
+    max-width: 200px;
+  }
+
+  .chat-button {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Tablet pequeña - 481px a 768px: 2 columnas */
+@media (min-width: 481px) and (max-width: 768px) {
+  .character-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    margin: 40px auto;
+    padding: 0 20px 70px;
+  }
+
+  .character-card {
+    height: 360px;
+  }
+
+  .character-avatar {
+    width: 120px;
+    height: 120px;
+  }
+
+  .character-name {
+    font-size: 1.35rem;
+  }
+
+  .character-real {
+    font-size: 0.9rem;
+  }
+
+  .character-hint {
+    font-size: 0.72rem;
+    padding: 5px 11px;
+  }
+
+  .character-description {
+   font-size: 0.92rem;
+    max-width: 220px;
+  }
+
+  .chat-button {
+    padding: 11px 26px;
+    font-size: 0.92rem;
+  }
+}
+
+/* Tablet - 768px en adelante: 3 columnas (desktop) */
+@media (min-width: 768px) {
+  .character-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+}

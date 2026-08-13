@@ -1,0 +1,88 @@
+/* Tablet - 768px en adelante */
+@media (min-width: 768px) {
+  body {
+    padding: 1.25rem;
+  }
+
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0.7rem;
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 1rem 0;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .animated-title {
+    font-size: 2em;
+  }
+
+  #theme-toggle {
+    padding: 0.55rem 0.9rem;
+    min-width: 44px;
+    min-height: 40px;
+    font-size: 0.9rem;
+  }
+
+  .main-nav {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    display: inline-flex;
+  }
+
+  .nav-btn {
+    margin-left: 0;
+    padding: 0.65rem 1rem;
+    font-size: 0.8rem;
+    flex: 0 0 auto;
+    min-width: 92px;
+    min-height: 40px;
+  }
+
+  main {
+    padding: 2rem;
+    padding-top: calc(var(--header-offset) - 12px);
+  }
+
+  .home-section {
+    padding: 4rem 2rem;
+  }
+
+  .home-title {
+    font-size: 2.75rem;
+  }
+
+  .home-description {
+    font-size: 1.15rem;
+  }
+
+  .home-actions {
+    flex-direction: row;
+    gap: 1rem;
+    width: auto;
+    max-width: none;
+  }
+
+  .home-cta-btn {
+    width: auto;
+    padding: 1rem 2.5rem;
+  }
+
+  /* Chat responsive */
+  .chat-shell {
+    width: min(calc(100% - 2.5rem), 420px);
+  }
+}

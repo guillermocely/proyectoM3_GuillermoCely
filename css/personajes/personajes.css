@@ -1,0 +1,133 @@
+/* ============================================================
+   MÓDULO: PERSONAJES — tarjetas de selección
+   El color de cada tarjeta viene de --char-color
+   (lo inyecta src/views/charactersView.js desde los datos).
+   ============================================================ */
+
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 32px;
+    max-width: 1050px;
+    width: 100%;
+    min-height: calc(100vh - var(--header-offset) - 120px);
+    margin: 0 auto;
+    padding: 28px 24px 80px;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.character-card {
+    perspective: 1000px;
+    height: 380px;
+    cursor: default;
+}
+
+.character-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.character-card:hover .character-card-inner {
+    transform: rotateY(180deg);
+}
+
+.character-card-front,
+.character-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 44px 24px 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: transform .25s ease, box-shadow .25s ease, background-color .35s ease;
+}
+
+.character-card-back {
+    transform: rotateY(180deg);
+    justify-content: center;
+    gap: 16px;
+}
+
+.character-card:hover .character-card-front {
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .35), 0 0 0 1px var(--char-color, var(--grad-a));
+}
+
+.character-card:hover .character-card-back {
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .35), 0 0 0 1px var(--char-color, var(--grad-a));
+}
+
+.character-avatar {
+    width: 130px;
+    height: 130px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    margin-bottom: 18px;
+    overflow: hidden;
+    border: 4px solid color-mix(in srgb, var(--char-color) 55%, transparent);
+    box-shadow: 0 10px 26px color-mix(in srgb, var(--char-color) 40%, transparent);
+    background: linear-gradient(135deg,
+        color-mix(in srgb, var(--char-color) 85%, #fff 15%),
+        color-mix(in srgb, var(--char-color) 70%, #000 30%));
+}
+
+.character-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    transform: scale(1.15);
+}
+
+.character-name {
+    font-size: 1.45rem;
+    font-weight: 800;
+    margin: 8px 0 2px;
+}
+
+.character-real {
+    color: var(--text-dim);
+    font-size: .92rem;
+    margin: 0;
+}
+
+
+.character-description {
+    color: var(--text-dim);
+    font-size: .95rem;
+    line-height: 1.6;
+    text-align: center;
+    margin: 0;
+    max-width: 240px;
+}
+
+.chat-button {
+    margin-top: auto;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-size: .95rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, var(--char-color), var(--grad-b));
+    border: none;
+    cursor: pointer;
+    transition: all .25s ease;
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--char-color) 30%, transparent);
+}
+
+.chat-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--char-color) 40%, transparent);
+}

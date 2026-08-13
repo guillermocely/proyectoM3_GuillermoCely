@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aiflowix</title>
+  <link rel="stylesheet" href="css/main.css" />
+  
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-top">
+      <h1 class="animated-title">
+        Aiflowix
+        <span class="hover-text" data-text="Aiflowix">Aiflowix</span>
+      </h1>
+
+      <div class="header-actions">
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+          🌙
+        </button>
+      </div>
+    </div>
+    <!-- data-link marca estos como navegación interna de la SPA -->
+    <nav class="main-nav" id="main-nav">
+      <a href="/" class="nav-btn">Home</a>
+      <a href="/characters" class="nav-btn">Personajes</a>
+      <a href="/about" class="nav-btn">About</a>
+    </nav>
+
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <a href="/" class="mobile-menu-btn">Home</a>
+      <a href="/characters" class="mobile-menu-btn">Personajes</a>
+      <a href="/about" class="mobile-menu-btn">About</a>
+    </div>
+  </header>
+
+  <!-- Este es el único contenedor que JavaScript va a reescribir -->
+  <main id="app"></main>
+
+  <!-- Módulo ES6 como punto de entrada -->
+  <script type="module" src="src/main.js"></script>
+   <!-- Water ripple effect -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
+  <script>
+    jQuery(document).ready(function( $ ) {
+        $('body').ripples({
+            resolution: 512,
+            dropRadius: 20,
+            perturbance: 0.04,
+            interactive: true
+        });
+    });
+  </script>
+</body>
+</html>

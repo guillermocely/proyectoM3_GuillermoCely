@@ -1,0 +1,88 @@
+/* Variables CSS para el diseño de la barra de navegación */
+:root {
+  --font: system-ui, sans-serif;
+  --brand-glow: #37FF8B;
+  --radius: 14px;
+}
+
+/* Tema oscuro */
+html[data-theme="dark"] {
+  --surface: #0d1117;
+  --border: #30363d;
+  --nav-text: #ffffff;
+  --nav-bg: #161b22;
+  --title-stroke: rgba(255, 255, 255, 0.8);
+  --bg-color: #000000;
+  --text-color: #f0f6fc;
+  --surface-2: #1f2428;
+  --text-dim: #8b949e;
+  --text: #f0f6fc;
+  --char-color: #58a6ff;
+  --bubble-other: #161b22;
+  --bubble-user-a: #1f6feb;
+  --bubble-user-b: #8957e5;
+  --grad-a: #58a6ff;
+  --grad-b: #8957e5;
+  --glow: rgba(88, 166, 255, 0.5);
+  --input-bg: #0d1117;
+}
+
+/* Tema claro */
+html[data-theme="light"] {
+  --surface: #ffffff;
+  --border: #e1e4e8;
+  --nav-text: #24292f;
+  --nav-bg: #f6f8fa;
+  --title-stroke: rgba(0, 0, 0, 0.7);
+  --bg-color: #fafbfc;
+  --text-color: #24292f;
+  --surface-2: #f6f8fa;
+  --text-dim: #57606a;
+  --text: #24292f;
+  --char-color: #0969da;
+  --bubble-other: #f6f8fa;
+  --bubble-user-a: #0969da;
+  --bubble-user-b: #8a2be2;
+  --grad-a: #0969da;
+  --grad-b: #8a2be2;
+  --glow: rgba(9, 105, 218, 0.3);
+  --input-bg: #ffffff;
+}
+
+/* Aplicar variables globales */
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+  min-height: 100vh;
+}
+
+/* Tema oscuro con efecto de agua */
+html[data-theme="dark"] body {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="%23000000"/></svg>');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Animaciones */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes msgIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}

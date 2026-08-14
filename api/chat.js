@@ -1,67 +1,62 @@
 /* ============================================================
-   API: /api/chat — función serverless (Vercel) - OPENROUTER
+   API: /api/chat — función serverless con Gemini de Google
    ============================================================ */
 
-import OpenAI from 'openai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método no permitido.' });
 
-  const { messages, characterId, systemInstruction } = req.body || {};
-  const apiKey = process.env.OPENROUTER_API_KEY;
+  const { messages = [], characterId, systemInstruction } = req.body || {};
+  const apiKey = process.env.GEMINI_API_KEY;
 
-  if (!apiKey) return res.status(200).json({ reply: "Configura OPENROUTER_API_KEY en Vercel." });
-  if (!messages?.length || !characterId) return res.status(400).json({ error: 'Datos incompletos' });
+  if (!apiKey) {
+    return res.status(200).json({ reply: 'Configura GEMINI_API_KEY en tu entorno.' });
+  }
+
+  // characterId se recibe para validar que la request venga completa desde
+  // el frontend (cada personaje tiene su propio systemInstruction armado
+  // en el cliente antes de llamar a esta función). No se usa dentro del
+  // handler porque el prompt de personalidad ya llega listo en systemInstruction.
+  if (!Array.isArray(messages) || !messages.length || !characterId) {
+    return res.status(400).json({ error: 'Datos incompletos' });
+  }
 
   try {
-    console.log('🔗 Usando OpenRouter API con OpenAI SDK');
-    console.log('📊 Modelo: google/gemini-2.5-flash');
-    
-    const openai = new OpenAI({
-      baseURL: "https://openrouter.ai",
-      apiKey: apiKey,
-      defaultHeaders: {
-        "HTTP-Referer": "https://proyecto-m3-guillermo-cely.vercel.app",
-        "X-Title": "Aiflowix",
-      }
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-3.5-flash-lite',
+      systemInstruction: systemInstruction || 'Eres un asistente útil.'
     });
 
-    const lastUserMessage = messages.filter(m => m.role === 'user').pop();
-    const prompt = lastUserMessage?.content || '';
+    // Se envía el historial completo de la conversación (no solo el último
+    // mensaje) para que el modelo mantenga el contexto entre turnos.
+    const contents = messages.map((message) => ({
+      role: message.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: String(message.content ?? '') }]
+    }));
 
-    const formattedMessages = [];
-    if (systemInstruction) {
-      formattedMessages.push({ role: 'system', content: systemInstruction });
-    }
-    formattedMessages.push({ role: 'user', content: prompt });
+    const result = await model.generateContent({ contents });
+    const response = await result.response;
+    const text = response.text();
 
-    const completion = await openai.chat.completions.create({
-      model: 'google/gemini-2.5-flash',
-      messages: formattedMessages,
-      temperature: 0.6,
-      max_tokens: 100
-    });
-
-    console.log('🔍 Respuesta completa de OpenRouter:', JSON.stringify(completion, null, 2));
-    
-    const text = completion.choices?.[0]?.message?.content || '';
-    const usage = completion.usage;
-
-    console.log('✅ Respuesta exitosa de OpenRouter');
-    console.log('📝 Texto:', text);
-    console.log('📊 Usage:', usage);
+    // usageMetadata trae los datos REALES de tokens consumidos en esta
+    // llamada (no valores inventados). Si Gemini no lo devuelve por algún
+    // motivo, mandamos null para no fingir un dato que no tenemos.
+    const usage = response.usageMetadata
+      ? {
+          promptTokens: response.usageMetadata.promptTokenCount,
+          responseTokens: response.usageMetadata.candidatesTokenCount,
+          totalTokens: response.usageMetadata.totalTokenCount
+        }
+      : null;
 
     return res.status(200).json({
       reply: text.trim(),
-      usage: {
-        promptTokens: usage?.prompt_tokens ?? 0,
-        outputTokens: usage?.completion_tokens ?? 0,
-        totalTokens: usage?.total_tokens ?? 0
-      }
+      usage
     });
   } catch (error) {
-    console.error('❌ Error en OpenRouter:', error);
-    console.error('📋 Detalles del error:', error.message);
-    return res.status(500).json({ error: 'Error al conectar con el modelo.', details: error.message });
+    console.error('❌ Error en Gemini:', error);
+    return res.status(500).json({ error: 'Error al conectar con Gemini.', details: error.message });
   }
 }

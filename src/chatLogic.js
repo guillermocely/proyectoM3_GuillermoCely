@@ -10,6 +10,14 @@ let tokensAcumuladosSesion = 0;
 
 export async function sendChatMessage({ history, character, onThinking, onReply, onError }) {
   const messages = buildMessages(history, character);
+
+  // El primer elemento de buildMessages() es el prompt de sistema (role: 'system').
+  // No lo mandamos dentro de "messages" al backend porque:
+  //   1) el backend ya recibe el system prompt aparte, en systemInstruction
+  //   2) Gemini espera turnos alternados user/model; dejar el 'system' ahí
+  //      adentro rompe esa alternancia y puede hacer que el modelo pierda contexto
+  const historyForApi = messages.filter((message) => message.role !== 'system');
+
   onThinking?.(true);
 
   try {
@@ -17,7 +25,7 @@ export async function sendChatMessage({ history, character, onThinking, onReply,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        messages,
+        messages: historyForApi,
         characterId: character.id,
         systemInstruction: character.systemInstruction
       })
@@ -49,7 +57,7 @@ export async function sendChatMessage({ history, character, onThinking, onReply,
   } catch (error) {
     console.warn('[Chat] API falló, usando respuestas locales:', error);
     // Usar respuestas locales como respaldo
-    const lastUserMessage = messages.filter(m => m.role === 'user').pop();
+    const lastUserMessage = historyForApi.filter(m => m.role === 'user').pop();
     const localReply = lastUserMessage ? getReply(character, lastUserMessage.content) : character.greeting || 'Hola';
     onReply?.({
       role: 'assistant',

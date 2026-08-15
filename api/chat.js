@@ -4,6 +4,10 @@
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
+// Nota de brevedad: se agrega al prompt para que el personaje cierre la
+// respuesta antes del limite de tokens y no quede cortada a mitad de frase.
+const SHORT_RESPONSE_NOTE = 'IMPORTANTE: responde de forma MUY breve y concisa, en máximo 30 palabras, y termina siempre las frases para que la respuesta quede completa.';
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método no permitido.' });
 
@@ -26,7 +30,7 @@ export default async function handler(req, res) {
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({
       model: 'gemini-3.5-flash-lite',
-      systemInstruction: systemInstruction || 'Eres un asistente útil.',
+      systemInstruction: (systemInstruction || 'Eres un asistente útil.') + ' ' + SHORT_RESPONSE_NOTE,
       generationConfig: {
         maxOutputTokens: 100,
         temperature: 0.6

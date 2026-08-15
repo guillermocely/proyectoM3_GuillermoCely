@@ -106,7 +106,7 @@
   border-radius: 0.5rem;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid transparent;
-  color: var(--text);
+  color: #ffffff;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;

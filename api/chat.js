@@ -26,7 +26,11 @@ export default async function handler(req, res) {
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({
       model: 'gemini-3.5-flash-lite',
-      systemInstruction: systemInstruction || 'Eres un asistente útil.'
+      systemInstruction: systemInstruction || 'Eres un asistente útil.',
+      generationConfig: {
+        maxOutputTokens: 200,
+        temperature: 0.6
+      }
     });
 
     // Se envía el historial completo de la conversación (no solo el último

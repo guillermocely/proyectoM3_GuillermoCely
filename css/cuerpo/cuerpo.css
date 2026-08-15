@@ -222,3 +222,20 @@ section h2 {
   color: var(--text-dim);
   line-height: 1.4;
 }
+
+/* Footer: marca el final de la página y limita el scroll */
+.site-footer {
+  width: 100%;
+  text-align: center;
+  padding: 1.25rem 1rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  box-sizing: border-box;
+}
+
+.footer-text {
+  margin: 0;
+}

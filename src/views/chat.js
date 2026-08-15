@@ -20,6 +20,7 @@ export function renderChat() {
   const app = document.getElementById('app');
   const character = getCharacterFromUrl();
   document.body.classList.add('chat-route');
+  document.body.classList.remove('home-route');
   document.documentElement.style.setProperty('--char-color', character.themeColor);
 
   const storedHistory = JSON.parse(localStorage.getItem(`chatflow-${character.id}`) || 'null') || [];

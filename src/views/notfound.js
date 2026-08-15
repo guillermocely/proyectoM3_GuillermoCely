@@ -1,6 +1,7 @@
 export function renderNotFound() {
   const app = document.getElementById('app');
   document.body.classList.remove('chat-route');
+  document.body.classList.remove('home-route');
   
   app.innerHTML = `
     <section>

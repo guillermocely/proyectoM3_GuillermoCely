@@ -23,6 +23,17 @@ body.chat-route {
   height: 100vh;
 }
 
+/* Home de presentación: una sola pantalla, sin barra lateral de scroll */
+html:has(body.home-route) {
+  overflow-y: hidden;
+  scrollbar-gutter: auto;
+}
+
+body.home-route {
+  overflow: hidden;
+  height: 100vh;
+}
+
 body.chat-route main {
   width: 100%;
   padding: 0;

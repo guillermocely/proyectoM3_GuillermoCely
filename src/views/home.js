@@ -3,6 +3,7 @@ import { navigateTo } from '../router/navigation.js';
 export function renderHome() {
   const app = document.getElementById('app');
   document.body.classList.remove('chat-route');
+  document.body.classList.add('home-route');
 
   app.innerHTML = `
     <section class="home-section">

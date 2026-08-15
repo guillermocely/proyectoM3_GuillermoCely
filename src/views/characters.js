@@ -8,6 +8,7 @@ const characters = [loki, homerSimpson, subZero];
 export function renderCharacters() {
   const app = document.getElementById('app');
   document.body.classList.remove('chat-route');
+  document.body.classList.remove('home-route');
 
   app.innerHTML = `
     <div class="character-grid">

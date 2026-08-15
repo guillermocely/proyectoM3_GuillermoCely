@@ -13,7 +13,7 @@ Aiflowix es una aplicación web de chat interactivo con personajes ficticios y u
 - **JavaScript (ES6 Modules)**: lógica de la SPA, vistas y chat.
 - **Vitest**: framework de pruebas para utilidades y validaciones.
 - **Google Generative AI SDK**: se usa en `api/chat.js` para conectarse directamente a la API de Gemini.
-- **jQuery + jquery.ripples**: efecto visual de agua/ripple cargado desde CDN en `index.html`.
+- **jQuery + jquery.ripples**: efecto visual de agua/ripple (jQuery desde CDN y `jquery.ripples.min.js` local, cargado solo en desktop).
 
 Nota: el proyecto no usa OpenRouter ni el SDK de `openai`. La integración es directa con Gemini a través de `@google/generative-ai`, usando el modelo `gemini-3.5-flash-lite`.
 
@@ -78,6 +78,7 @@ Aiflowix/
 ├── package.json
 ├── test-api.js                 # script manual de verificación del body enviado a /api/chat
 ├── test-gemini.mjs             # chat interactivo de prueba con Gemini (elegís el personaje)
+├── vercel.json                 # config de Vercel (rewrites SPA fallback)
 ├── vitest.config.js
 ├── README.md
 └── node_modules/              # generado por npm install
@@ -284,20 +285,22 @@ Aiflowix implementa un sistema de routing personalizado con History API para una
 
 ## Efecto Visual de Agua (Ripple)
 
-La interfaz incluye un efecto visual de agua/ripple implementado con jQuery y la librería `jquery.ripples` cargada en `index.html`:
+La interfaz incluye un efecto visual de agua/ripple implementado con jQuery y la librería `jquery.ripples`, guardada como archivo local en la raíz del proyecto (`jquery.ripples.min.js`, v0.5.3) y cargada en `index.html`:
 
 ```html
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
+<script src="jquery.ripples.min.js"></script>
 ```
 
-La configuración actual aplica el efecto al `body` con resolución y perturbación predefinidas.
+El efecto solo se activa en **desktop** (pantallas de 768px o más con mouse, `pointer: fine`), para evitar puntos blancos y problemas de scroll táctil en móviles.
 
 ## Despliegue
 
 ### Vercel
 
 El proyecto está pensado para desplegarse en Vercel. La carpeta `.vercel/` es un artefacto generado por la plataforma y no forma parte del repositorio clonado (está en `.gitignore`). Vercel detecta automáticamente la carpeta `api/` como funciones serverless.
+
+El archivo `vercel.json` agrega un **SPA fallback**: las rutas sin extensión (`/about`, `/characters`, `/chat?...`) se sirven con `index.html` para que el router del frontend funcione al entrar directo o recargar. Las rutas `/api/*` y los archivos con extensión quedan excluidas del rewrite.
 
 #### Opción A: Desde el dashboard (recomendada)
 

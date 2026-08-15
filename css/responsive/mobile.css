@@ -152,11 +152,11 @@ main {
 
 .chat-input-bar {
   padding: 0.75rem 0.85rem;
-  flex-direction: column;
 }
 
 .chat-send {
-  width: 100%;
+  width: 44px;
+  height: 44px;
 }
 
 /* Tablet pequeña - 481px en adelante */

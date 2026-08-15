@@ -204,13 +204,18 @@
 .suggestion-chip:hover { color: var(--grad-a); border-color: var(--grad-a); }
 
 /* ---------- Barra de entrada ---------- */
+/* mobile-first: input y botón siempre en la misma fila (nunca columna) */
 .chat-input-bar {
-    display: flex; gap: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
     padding: 14px 16px;
     border-top: 1px solid var(--border);
 }
 .chat-input {
     flex: 1;
+    min-width: 0; /* permite que el input se encoja dentro de la fila */
     padding: 13px 18px;
     border: 1px solid var(--border);
     border-radius: 999px;
@@ -224,7 +229,8 @@
 .chat-input::placeholder { color: var(--text-dim); }
 
 .chat-send {
-    width: 48px; height: 48px; flex-shrink: 0;
+    width: 48px; height: 48px;
+    flex: 0 0 auto; /* ancho fijo: no se estira ni se encoge */
     display: grid; place-items: center;
     border: none; border-radius: 50%;
     background: linear-gradient(135deg, var(--grad-a), var(--grad-b));

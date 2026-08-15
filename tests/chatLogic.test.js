@@ -3,9 +3,9 @@ import { sendChatMessage } from '../src/chatLogic.js';
 
 // Personaje de prueba
 const character = {
-  id: 'iron-man',
-  systemInstruction: 'Eres Tony Stark',
-  greeting: 'Hola, soy Iron Man'
+  id: 'loki',
+  systemInstruction: 'Eres Loki, Dios de la Astucia',
+  greeting: 'Saludos, mortal. Soy Loki'
 };
 
 describe('sendChatMessage', () => {
@@ -25,7 +25,7 @@ describe('sendChatMessage', () => {
       capturedBody = JSON.parse(options.body);
       return Promise.resolve({
         ok: true,
-        json: () => Promise.resolve({ reply: 'Soy Tony Stark', usage: { totalTokens: 42 } })
+        json: () => Promise.resolve({ reply: 'Soy Loki', usage: { totalTokens: 42 } })
       });
     });
 
@@ -53,7 +53,7 @@ describe('sendChatMessage', () => {
 
     const hasSystemRole = capturedBody.messages.some((m) => m.role === 'system');
     expect(hasSystemRole).toBe(false);
-    expect(capturedBody.systemInstruction).toBe('Eres Tony Stark');
+    expect(capturedBody.systemInstruction).toBe('Eres Loki, Dios de la Astucia');
   });
 
   it('usa respuesta local (fallback) si la API falla, sin romper la conversación', async () => {

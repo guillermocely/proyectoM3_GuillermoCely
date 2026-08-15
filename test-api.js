@@ -1,15 +1,15 @@
 // Script de prueba para verificar que el body solo contiene characterId, systemInstruction y messages
-const ironMan = {
-  id: 'iron-man',
-  name: 'Iron Man',
-  systemInstruction: `Eres Tony Stark, también conocido como Iron Man.`,
-  keywords: [{ keys: ['hola'], replies: ['Hola Stark'] }],
+const loki = {
+  id: 'loki',
+  name: 'Loki',
+  systemInstruction: `Eres Loki, Dios de la Astucia.`,
+  keywords: [{ keys: ['hola'], replies: ['Saludos, mortal'] }],
   fallback: ['Respuesta fallback']
 };
 
 const history = [
   { role: 'user', content: 'Hola' },
-  { role: 'assistant', content: 'Hola, soy Iron Man' }
+  { role: 'assistant', content: 'Hola, soy Loki' }
 ];
 
 async function testRequestBody() {
@@ -20,7 +20,7 @@ async function testRequestBody() {
   const messages = [
     {
       role: 'system',
-      content: ironMan.systemInstruction
+      content: loki.systemInstruction
     },
     ...history.map((message) => ({
       role: message.role,
@@ -30,8 +30,8 @@ async function testRequestBody() {
 
   const body = {
     messages,
-    characterId: ironMan.id,
-    systemInstruction: ironMan.systemInstruction
+    characterId: loki.id,
+    systemInstruction: loki.systemInstruction
   };
 
   console.log('--- Contenido del body ---');

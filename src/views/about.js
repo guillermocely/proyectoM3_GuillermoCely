@@ -15,9 +15,9 @@ export function renderAbout() {
           <p>El padre de la familia Simpson</p>
         </div>
         <div class="character-card">
-          <div class="character-icon">🦾</div>
-          <h4>Iron Man</h4>
-          <p>Tony Stark, genio y filántropo</p>
+          <div class="character-icon">🪄</div>
+          <h4>Loki</h4>
+          <p>Dios de la astucia y el engaño</p>
         </div>
         <div class="character-card">
           <div class="character-icon">❄️</div>
@@ -44,9 +44,9 @@ export function renderAbout() {
           <p>Integración con Gemini para respuestas contextuales</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">�</div>
-          <h3>Frontend Puro</h3>
-          <p>Desarrollado completamente sin backend</p>
+          <div class="feature-icon">☁️</div>
+          <h3>API Serverless</h3>
+          <p>Función serverless en Vercel que conecta con Gemini para generar respuestas</p>
         </div>
       </div>
     </section>

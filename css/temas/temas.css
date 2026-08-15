@@ -25,6 +25,37 @@ html[data-theme="dark"] {
   --grad-b: #8957e5;
   --glow: rgba(88, 166, 255, 0.5);
   --input-bg: #0d1117;
+  /* Acento y navegación */
+  --accent: #008cff;
+  --accent-glow: rgba(0, 140, 255, 0.5);
+  --accent-glow-soft: rgba(0, 140, 255, 0.4);
+  --accent-outline: rgba(0, 140, 255, 0.8);
+  --title-stroke-color: rgba(0, 140, 255, 0.678);
+  --nav-btn-bg: rgb(14, 14, 26);
+  --nav-btn-text: rgb(234, 234, 234);
+  --nav-btn-hover-bg: #070707;
+  --nav-btn-shadow: rgba(31, 76, 101, 0.28);
+  --nav-sheen: rgba(255, 255, 255, 0.16);
+  --mobile-menu-bg: rgba(12, 17, 28, 0.95);
+  --mobile-menu-toggle-bg: rgba(17, 24, 39, 0.75);
+  --mobile-menu-btn-bg: rgba(255, 255, 255, 0.03);
+  --on-dark: #ffffff;
+  /* Estados */
+  --danger: #ef4444;
+  --danger-bg: rgba(239, 68, 68, 0.1);
+  --success: #22c55e;
+  /* Home */
+  --home-grad-a: #667eea;
+  --home-grad-b: #764ba2;
+  --home-text-muted: #6b7280;
+  --home-shadow-a: rgba(102, 126, 234, 0.4);
+  --home-shadow-b: rgba(102, 126, 234, 0.6);
+  --home-btn-dark: #111827;
+  /* Sombras y divisores */
+  --card-shadow: rgba(0, 0, 0, 0.3);
+  --card-shadow-strong: rgba(0, 0, 0, 0.35);
+  --bubble-shadow: rgba(0, 0, 0, 0.15);
+  --divider-soft: rgba(128, 128, 128, 0.2);
 }
 
 /* Tema claro */
@@ -47,6 +78,37 @@ html[data-theme="light"] {
   --grad-b: #8a2be2;
   --glow: rgba(9, 105, 218, 0.3);
   --input-bg: #ffffff;
+  /* Acento y navegación */
+  --accent: #008cff;
+  --accent-glow: rgba(0, 140, 255, 0.5);
+  --accent-glow-soft: rgba(0, 140, 255, 0.4);
+  --accent-outline: rgba(0, 140, 255, 0.8);
+  --title-stroke-color: rgba(0, 140, 255, 0.678);
+  --nav-btn-bg: rgb(14, 14, 26);
+  --nav-btn-text: rgb(234, 234, 234);
+  --nav-btn-hover-bg: #070707;
+  --nav-btn-shadow: rgba(31, 76, 101, 0.28);
+  --nav-sheen: rgba(255, 255, 255, 0.16);
+  --mobile-menu-bg: rgba(12, 17, 28, 0.95);
+  --mobile-menu-toggle-bg: rgba(17, 24, 39, 0.75);
+  --mobile-menu-btn-bg: rgba(255, 255, 255, 0.03);
+  --on-dark: #ffffff;
+  /* Estados */
+  --danger: #ef4444;
+  --danger-bg: rgba(239, 68, 68, 0.1);
+  --success: #22c55e;
+  /* Home */
+  --home-grad-a: #667eea;
+  --home-grad-b: #764ba2;
+  --home-text-muted: #6b7280;
+  --home-shadow-a: rgba(102, 126, 234, 0.4);
+  --home-shadow-b: rgba(102, 126, 234, 0.6);
+  --home-btn-dark: #111827;
+  /* Sombras y divisores */
+  --card-shadow: rgba(0, 0, 0, 0.3);
+  --card-shadow-strong: rgba(0, 0, 0, 0.35);
+  --bubble-shadow: rgba(0, 0, 0, 0.15);
+  --divider-soft: rgba(128, 128, 128, 0.2);
 }
 
 /* Aplicar variables globales */

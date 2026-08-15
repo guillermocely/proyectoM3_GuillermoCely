@@ -55,7 +55,7 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 24px var(--bubble-shadow);
     min-width: 180px;
     z-index: 100;
     display: none;
@@ -75,8 +75,8 @@
     text-align: left;
 }
 .chat-menu-item:hover { background: var(--surface-2); }
-.chat-menu-item.danger { color: #ef4444; }
-.chat-menu-item.danger:hover { background: rgba(239, 68, 68, 0.1); }
+.chat-menu-item.danger { color: var(--danger); }
+.chat-menu-item.danger:hover { background: var(--danger-bg); }
 
 .chat-avatar {
     width: 44px; height: 44px;
@@ -104,8 +104,8 @@
 }
 .status-dot {
     width: 8px; height: 8px; border-radius: 50%;
-    background: #22c55e;
-    box-shadow: 0 0 8px #22c55e;
+    background: var(--success);
+    box-shadow: 0 0 8px var(--success);
     animation: pulse 1.8s ease infinite;
 }
 
@@ -168,7 +168,7 @@
 .msg.user { align-self: flex-end; flex-direction: row-reverse; }
 .msg.user .msg-bubble {
     background: linear-gradient(135deg, var(--bubble-user-a), var(--bubble-user-b));
-    color: #fff;
+    color: var(--on-dark);
     border-radius: 16px; border-top-right-radius: 4px;
 }
 
@@ -228,7 +228,7 @@
     display: grid; place-items: center;
     border: none; border-radius: 50%;
     background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-    color: #fff; cursor: pointer;
+    color: var(--on-dark); cursor: pointer;
     transition: transform .2s, box-shadow .2s;
 }
 .chat-send:hover { transform: scale(1.08); box-shadow: 0 6px 18px var(--glow); }

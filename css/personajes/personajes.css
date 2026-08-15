@@ -18,10 +18,21 @@
     align-items: center;
 }
 
-.character-card {
+.character-grid .character-card {
     perspective: 1000px;
     height: 380px;
     cursor: default;
+    /* la tarjeta 3D no tiene caja exterior: solo se ve el frente/dorso */
+    background: none;
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.character-grid .character-card:hover {
+    transform: none;
+    box-shadow: none;
 }
 
 .character-card-inner {

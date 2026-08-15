@@ -2,7 +2,7 @@ import { loki } from '../characters/loki.js';
 import { homerSimpson } from '../characters/homer-simpson.js';
 import { subZero } from '../characters/sub-zero.js';
 import { sendChatMessage } from '../chatLogic.js';
-import { formatTime } from '../utils.js';
+import { escapeHtml, formatTime } from '../utils.js';
 
 const characters = {
   'loki': loki,
@@ -110,8 +110,8 @@ export function renderChat() {
         <div class="msg ${message.role === 'user' ? 'user' : ''}">
           ${message.role === 'assistant' ? `<div class="msg-avatar"><img src="${character.avatar}" alt="Avatar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;"></div>` : ''}
           <div class="msg-bubble">
-            ${message.content}
-            <span class="msg-time">${message.time}</span>
+            ${escapeHtml(message.content)}
+            <span class="msg-time">${escapeHtml(message.time)}</span>
           </div>
         </div>
       `;

@@ -6,11 +6,15 @@ main {
   padding: 2rem;
   padding-top: calc(var(--header-offset) + 34px);
   min-height: 0;
+  flex: 1 0 auto;
   box-sizing: border-box;
 }
 
 #app {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
 }
 
 /* Ocultar barra de desplazamiento del body en la ruta del chat */
@@ -52,7 +56,7 @@ section h2 {
   justify-content: center;
   text-align: center;
   width: min(100%, 900px);
-  min-height: calc(100vh - var(--header-offset) - 120px);
+  flex: 1;
   margin: 0 auto;
   padding: 2rem 2rem 3rem;
   box-sizing: border-box;
@@ -228,7 +232,7 @@ section h2 {
   width: 100%;
   text-align: center;
   padding: 1.25rem 1rem;
-  margin-top: 2rem;
+  margin-top: 1.25rem;
   border-top: 1px solid var(--border);
   background: var(--surface);
   color: var(--text-dim);

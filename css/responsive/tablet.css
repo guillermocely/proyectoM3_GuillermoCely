@@ -71,8 +71,7 @@
   }
 
   .home-section {
-    padding: 4rem 2rem;
-    min-height: calc(100vh - var(--header-offset) - 120px);
+    padding: 2.5rem 2rem;
     justify-content: center;
   }
 
@@ -99,7 +98,6 @@
 
   /* Grilla de personajes */
   .character-grid {
-    min-height: calc(100vh - var(--header-offset) - 120px);
     align-content: center;
     justify-content: center;
   }

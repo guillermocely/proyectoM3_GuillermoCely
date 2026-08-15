@@ -1,5 +1,13 @@
-/* Tablet - 768px en adelante */
+/* ============================================================
+   MÓDULO: RESPONSIVE — TABLET (768px en adelante)
+   Mobile-first: estos estilos se agregan sobre la base móvil.
+   ============================================================ */
+
 @media (min-width: 768px) {
+  :root {
+    --header-offset: 170px;
+  }
+
   body {
     padding: 1.25rem;
   }
@@ -22,6 +30,7 @@
     justify-content: space-between;
     width: 100%;
     min-height: 44px;
+    gap: 0.75rem;
   }
 
   .animated-title {
@@ -36,11 +45,15 @@
   }
 
   .main-nav {
-    display: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    width: 100%;
+    justify-content: center;
   }
 
   .mobile-menu-toggle {
-    display: inline-flex;
+    display: none;
   }
 
   .nav-btn {
@@ -59,6 +72,8 @@
 
   .home-section {
     padding: 4rem 2rem;
+    min-height: calc(100vh - var(--header-offset) - 120px);
+    justify-content: center;
   }
 
   .home-title {
@@ -67,6 +82,7 @@
 
   .home-description {
     font-size: 1.15rem;
+    padding: 0;
   }
 
   .home-actions {
@@ -81,8 +97,40 @@
     padding: 1rem 2.5rem;
   }
 
+  /* Grilla de personajes */
+  .character-grid {
+    min-height: calc(100vh - var(--header-offset) - 120px);
+    align-content: center;
+    justify-content: center;
+  }
+
+  .character-card {
+    height: 380px;
+  }
+
   /* Chat responsive */
   .chat-shell {
     width: min(calc(100% - 2.5rem), 420px);
+    height: calc(100vh - 180px);
+    max-height: calc(100vh - 180px);
+    border-radius: var(--radius);
+  }
+
+  .chat-header {
+    padding: 14px 18px;
+  }
+
+  .chat-messages {
+    padding: 18px;
+  }
+
+  .chat-input-bar {
+    padding: 14px 16px;
+    flex-direction: row;
+  }
+
+  .chat-send {
+    width: 48px;
+    height: 48px;
   }
 }

@@ -1,161 +1,168 @@
-/* Móvil - hasta 480px */
-@media (max-width: 480px) {
-  html, body {
-    overflow-x: hidden;
-    max-width: 100%;
-  }
+/* ============================================================
+   MÓDULO: RESPONSIVE — BASE MOBILE-FIRST
+   Estos estilos son la base por defecto (pantallas móviles).
+   Las pantallas más grandes solo agregan mejoras con
+   @media (min-width) en tablet.css y desktop.css.
+   ============================================================ */
 
-  body {
-    padding: 0.5rem;
-  }
-
-  /* Navbar responsive */
-  .site-header {
-    position: fixed;
-    inset: 0 0 auto 0;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.5rem;
-    margin: 10px 8px 0;
-    padding: 10px 12px;
-    box-sizing: border-box;
-  }
-
-  .header-top {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    min-height: 42px;
-    gap: 0.5rem;
-  }
-
-  .header-actions {
-    position: static;
-    margin-left: auto;
-  }
-
-  .animated-title {
-    margin: 0;
-    font-size: 1.2rem;
-    line-height: 1.1;
-  }
-
-  #theme-toggle {
-    position: relative;
-    transform: none;
-    padding: 0.4rem 0.6rem;
-    min-width: 42px;
-    min-height: 38px;
-    font-size: 0.75rem;
-    margin-left: 0;
-    flex: 0 0 auto;
-  }
-
-  .main-nav {
-    display: none;
-  }
-
-  .mobile-menu-toggle {
-    display: inline-flex;
-  }
-
-  .mobile-menu {
-    display: none;
-  }
-
-  .mobile-menu.is-open {
-    display: flex;
-  }
-
-  .nav-btn {
-    margin-left: 0;
-    padding: 0.45rem 0.7rem;
-    font-size: 0.65rem;
-    white-space: nowrap;
-    flex: 0 0 auto;
-    min-width: 72px;
-    min-height: 38px;
-    line-height: 1.1;
-  }
-
-  /* Hero responsive */
-  .home-section {
-    min-height: auto;
-    padding: 1rem 1rem 1.5rem;
-    justify-content: flex-start;
-  }
-
-  .home-title {
-    font-size: 2rem;
-  }
-
-  .home-description {
-    font-size: 1rem;
-    padding: 0 0.5rem;
-  }
-
-  .home-actions {
-    flex-direction: column;
-    gap: 0.75rem;
-    width: 100%;
-    max-width: 280px;
-  }
-
-  .home-cta-btn {
-    width: 100%;
-    padding: 0.875rem 1.5rem;
-    font-size: 1rem;
-  }
-
-  main {
-    padding: 1rem;
-    padding-top: calc(var(--header-offset) - 8px);
-  }
-
-  .character-grid {
-    min-height: auto;
-    padding: 0 16px 60px;
-    align-content: flex-start;
-    justify-content: flex-start;
-  }
-
-  .character-card {
-    height: 340px;
-  }
-
-  .chat-shell {
-    width: min(calc(100% - 1.5rem), 100%);
-    max-height: calc(100vh - (var(--header-offset) + 36px));
-    border-radius: 20px;
-    margin: 0 auto 20px;
-  }
-
-  .chat-header {
-    padding: 0.75rem 0.85rem;
-  }
-
-  .chat-messages {
-    padding: 0.75rem;
-  }
-
-  .chat-input-bar {
-    padding: 0.75rem 0.85rem;
-    flex-direction: column;
-  }
-
-  .chat-send {
-    width: 100%;
-  }
+:root {
+  --header-offset: 90px;
 }
 
-/* Tablet pequeña - 481px a 768px */
-@media (min-width: 481px) and (max-width: 768px) {
-  html, body {
-    overflow-x: hidden;
-    max-width: 100%;
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+body {
+  padding: 0.5rem;
+}
+
+/* Navbar responsive */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+  margin: 10px 8px 0;
+  padding: 10px 12px;
+  box-sizing: border-box;
+}
+
+.header-top {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 42px;
+  gap: 0.5rem;
+}
+
+.header-actions {
+  position: static;
+  margin-left: auto;
+}
+
+.animated-title {
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.1;
+}
+
+#theme-toggle {
+  position: relative;
+  transform: none;
+  padding: 0.4rem 0.6rem;
+  min-width: 42px;
+  min-height: 38px;
+  font-size: 0.75rem;
+  margin-left: 0;
+  flex: 0 0 auto;
+}
+
+.main-nav {
+  display: none;
+}
+
+.mobile-menu-toggle {
+  display: inline-flex;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+.mobile-menu.is-open {
+  display: flex;
+}
+
+.nav-btn {
+  margin-left: 0;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.65rem;
+  white-space: nowrap;
+  flex: 0 0 auto;
+  min-width: 72px;
+  min-height: 38px;
+  line-height: 1.1;
+}
+
+/* Hero responsive */
+.home-section {
+  min-height: auto;
+  padding: 1rem 1rem 1.5rem;
+  justify-content: flex-start;
+}
+
+.home-title {
+  font-size: 2rem;
+}
+
+.home-description {
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+
+.home-actions {
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 280px;
+}
+
+.home-cta-btn {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+}
+
+main {
+  padding: 1rem;
+  padding-top: calc(var(--header-offset) - 8px);
+}
+
+.character-grid {
+  min-height: auto;
+  padding: 0 16px 60px;
+  align-content: flex-start;
+  justify-content: flex-start;
+}
+
+.character-card {
+  height: 340px;
+}
+
+.chat-shell {
+  width: min(calc(100% - 1.5rem), 100%);
+  max-height: calc(100vh - (var(--header-offset) + 36px));
+  border-radius: 20px;
+  margin: 0 auto 20px;
+}
+
+.chat-header {
+  padding: 0.75rem 0.85rem;
+}
+
+.chat-messages {
+  padding: 0.75rem;
+}
+
+.chat-input-bar {
+  padding: 0.75rem 0.85rem;
+  flex-direction: column;
+}
+
+.chat-send {
+  width: 100%;
+}
+
+/* Tablet pequeña - 481px en adelante */
+@media (min-width: 481px) {
+  :root {
+    --header-offset: 170px;
   }
 
   body {
@@ -249,17 +256,5 @@
     max-height: calc(100vh - (var(--header-offset) + 30px));
     border-radius: 20px;
     margin: 0 auto 20px;
-  }
-}
-
-@media (max-width: 768px) {
-  :root {
-    --header-offset: 170px;
-  }
-}
-
-@media (max-width: 480px) {
-  :root {
-    --header-offset: 200px;
   }
 }

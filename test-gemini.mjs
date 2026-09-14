@@ -14,10 +14,11 @@ const env = readFileSync('.env', 'utf8');
 const apiKey = env.match(/^GEMINI_API_KEY=(.*)$/m)?.[1]?.trim();
 
 const MODEL = 'gemini-3.5-flash-lite';
-const MAX_TOKENS = 50; // prueba: limite bajo para no gastar tokens
+const MAX_TOKENS = 64; // prueba: limite bajo para no gastar tokens
 const TEMPERATURE = 0.6;
 // Se le indica al personaje que cierre la respuesta antes del limite
-const SHORT_RESPONSE_NOTE = 'IMPORTANTE: responde siempre de forma breve y concisa, en máximo 50 palabras, y termina tus frases para que la respuesta quede completa.';
+const SHORT_RESPONSE_NOTE =
+  'Responde en máximo 30 palabras y termina siempre la respuesta.';
 
 const characters = [loki, homerSimpson, subZero];
 

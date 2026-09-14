@@ -1,5 +1,5 @@
 import { buildMessages, formatTime, parseApiResponse } from './utils.js';
-import { getReply } from './characters/responder.js';
+
 
 // Límite de referencia del free tier de Gemini para gemini-3.5-flash-lite.
 // IMPORTANTE: este número lo publica Google y lo cambia con cierta frecuencia —
@@ -31,11 +31,13 @@ export async function sendChatMessage({ history, character, onThinking, onReply,
       })
     });
 
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data?.error || 'No se pudo enviar el mensaje');
-    }
+   const data = await response.json();
 
+if (!response.ok) {
+  const apiError = new Error(data?.error || 'Error del servidor');
+  apiError.status = response.status;
+  throw apiError;
+}
     const reply = parseApiResponse(data);
 
     // Sumamos los tokens de esta llamada al acumulado de la sesión
@@ -54,16 +56,22 @@ export async function sendChatMessage({ history, character, onThinking, onReply,
       content: reply,
       time: formatTime(new Date())
     });
-  } catch (error) {
-    console.warn('[Chat] API falló, usando respuestas locales:', error);
-    // Usar respuestas locales como respaldo
-    const lastUserMessage = historyForApi.filter(m => m.role === 'user').pop();
-    const localReply = lastUserMessage ? getReply(character, lastUserMessage.content) : character.greeting || 'Hola';
-    onReply?.({
-      role: 'assistant',
-      content: localReply,
-      time: formatTime(new Date())
-    });
+   } catch (error) {
+  console.warn('[Chat] API falló:', error);
+
+  let errorMessage = 'No se pudo conectar con el servidor.';
+
+  if (typeof navigator !== 'undefined' && !navigator.onLine) {
+    errorMessage = 'Sin conexión a Internet.';
+  } else if (error.status === 401) {
+    errorMessage = 'La clave de API no es válida.';
+  } else if (error.status === 403) {
+    errorMessage = 'El servidor rechazó el acceso.';
+  } else if (error.status >= 500) {
+    errorMessage = 'El servidor tiene un problema temporal.';
+  }
+
+  onError?.(errorMessage);
   } finally {
     onThinking?.(false);
   }

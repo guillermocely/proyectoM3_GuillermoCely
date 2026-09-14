@@ -32,14 +32,20 @@ export default async function handler(req, res) {
       model: 'gemini-3.5-flash-lite',
       systemInstruction: (systemInstruction || 'Eres un asistente útil.') + ' ' + SHORT_RESPONSE_NOTE,
       generationConfig: {
-        maxOutputTokens: 100,
+        maxOutputTokens: 64,
         temperature: 0.6
       }
     });
 
     // Se envía el historial completo de la conversación (no solo el último
     // mensaje) para que el modelo mantenga el contexto entre turnos.
-    const contents = messages.map((message) => ({
+    const recentMessages = messages.slice(-6);
+
+if (recentMessages[0]?.role === 'assistant') {
+  recentMessages.shift();
+}
+
+const contents = recentMessages.map((message) => ({
       role: message.role === 'assistant' ? 'model' : 'user',
       parts: [{ text: String(message.content ?? '') }]
     }));

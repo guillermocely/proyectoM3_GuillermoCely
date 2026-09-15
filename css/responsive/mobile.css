@@ -132,7 +132,8 @@ main {
 }
 
 .character-card {
-  height: 340px;
+  height: auto;
+  min-height: 380px;
 }
 
 .chat-shell {

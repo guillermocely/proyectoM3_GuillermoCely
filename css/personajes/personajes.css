@@ -1,7 +1,11 @@
 /* ============================================================
    MÓDULO: PERSONAJES — tarjetas de selección
    El color de cada tarjeta viene de --char-color
-   (lo inyecta src/views/charactersView.js desde los datos).
+   (lo inyecta src/views/characters.js desde los datos).
+
+   Efecto 3D portado de chat-companions-ai (TiltCard):
+   la tarjeta permanece fija; el personaje "sale" del marco
+   al hacer hover (se levanta hacia el espectador).
    ============================================================ */
 
 .character-grid {
@@ -19,87 +23,88 @@
 }
 
 .character-grid .character-card {
-    perspective: 1000px;
-    height: 380px;
-    cursor: default;
-    /* la tarjeta 3D no tiene caja exterior: solo se ve el frente/dorso */
-    background: none;
-    border: none;
-    padding: 0;
-    border-radius: 0;
-    box-shadow: none;
-}
-
-.character-grid .character-card:hover {
-    transform: none;
-    box-shadow: none;
-}
-
-.character-card-inner {
     position: relative;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-}
-
-.character-card:hover .character-card-inner {
-    transform: rotateY(180deg);
-}
-
-.character-card-front,
-.character-card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
+    height: 470px;
+    cursor: default;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    padding: 44px 24px 32px;
+    padding: 28px 24px 28px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    transition: transform .25s ease, box-shadow .25s ease, background-color .35s ease;
+    overflow: visible;
+    transition: box-shadow .3s ease;
 }
 
-.character-card-back {
-    transform: rotateY(180deg);
-    justify-content: center;
-    gap: 16px;
+/* Glow del color del personaje, como en companions */
+.character-grid .character-card:hover {
+    box-shadow: 0 18px 40px -24px var(--char-color, var(--grad-a)),
+                0 0 0 1px var(--char-color, var(--grad-a));
+    z-index: 10;
 }
 
-.character-card:hover .character-card-front {
-    box-shadow: 0 18px 40px var(--card-shadow-strong), 0 0 0 1px var(--char-color, var(--grad-a));
-}
-
-.character-card:hover .character-card-back {
-    box-shadow: 0 18px 40px var(--card-shadow-strong), 0 0 0 1px var(--char-color, var(--grad-a));
-}
-
+/* Zona del personaje: la base de color permanece fija en la tarjeta;
+   la imagen PNG (transparente, cuerpo completo) es la que "sale" de la
+   tarjeta al hacer hover, igual que en companions. */
 .character-avatar {
-    width: 130px;
-    height: 130px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    margin-bottom: 18px;
-    overflow: hidden;
-    border: 4px solid color-mix(in srgb, var(--char-color) 55%, transparent);
-    box-shadow: 0 10px 26px color-mix(in srgb, var(--char-color) 40%, transparent);
-    background: linear-gradient(135deg,
-        color-mix(in srgb, var(--char-color) 85%, #fff 15%),
-        color-mix(in srgb, var(--char-color) 70%, #000 30%));
+    position: relative;
+    width: 100%;
+    height: 190px;
+    margin-bottom: 12px;
 }
 
+/* Base elíptica bajo los pies del personaje: parece un pedestal
+   que lo sostiene, con el color del personaje */
+.character-avatar::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    width: 160px;
+    height: 42px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    border: 2px solid color-mix(in srgb, var(--char-color) 60%, transparent);
+    box-shadow: 0 8px 22px color-mix(in srgb, var(--char-color) 35%, transparent);
+    background: radial-gradient(ellipse at 50% 30%,
+        color-mix(in srgb, var(--char-color) 80%, #fff 20%),
+        color-mix(in srgb, var(--char-color) 65%, #000 35%));
+}
+
+/* El personaje: cuerpo completo, sin recorte, puede sobresalir
+   de la base y de la tarjeta */
 .character-avatar img {
-    width: 100%;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
     height: 100%;
+    width: auto;
+    max-width: none;
     object-fit: contain;
-    object-position: center;
+    object-position: center bottom;
     display: block;
-    transform: scale(1.15);
+    transform: translateX(-50%) translateY(0) scale(1);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
+    will-change: transform;
+    filter: drop-shadow(0 6px 8px rgb(0 0 0 / 0.18));
+}
+
+.character-card:hover .character-avatar img {
+    transform: translateX(-50%) translateY(-46px) scale(1.22);
+    filter: drop-shadow(0 12px 10px rgb(0 0 0 / 0.22));
+}
+
+/* La base brilla un poco más cuando el personaje despega */
+.character-card:hover .character-avatar::before {
+    box-shadow: 0 8px 30px color-mix(in srgb, var(--char-color) 60%, transparent),
+                0 0 18px color-mix(in srgb, var(--char-color) 45%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .character-avatar img { transition: none; }
+    .character-card:hover .character-avatar img { transform: translateX(-50%) translateY(0) scale(1); }
 }
 
 .character-name {

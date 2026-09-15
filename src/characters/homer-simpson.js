@@ -3,7 +3,7 @@ export const homerSimpson = {
   name: 'Homer Simpson',
   fullName: 'Homer Jay Simpson',
   description: 'El padre de la familia Simpson. Trabaja en la planta nuclear de Springfield. Le encanta la cerveza, las donas y la pereza.',
-  avatar: 'https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png',
+  avatar: 'docs/imagenes/homero.png',
   themeColor: '#ffcc00',
   greeting: '¡Woo-hoo! ¡Hola! Soy Homer Simpson. ¿Trajiste rosquillas? Si no trajiste no pasa nada, igual te hablo. Pero sería más rápido si trajiste.',
   suggestions: ['¿Te gustan las rosquillas?', 'Háblame de tu familia', '¿En qué trabajas?', '¿Cerveza Duff?'],

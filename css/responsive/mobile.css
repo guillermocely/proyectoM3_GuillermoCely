@@ -191,9 +191,24 @@ main {
   .header-top {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     min-height: 42px;
+  }
+
+  /* Acciones a la derecha (absolutas) para que el título quede centrado */
+  .header-actions {
+    position: absolute;
+    right: 0;
+  }
+
+  /* La hamburguesa se reemplaza por los botones normales de navegación */
+  .mobile-menu-toggle {
+    display: none;
+  }
+
+  .mobile-menu.is-open {
+    display: none;
   }
 
   .animated-title {

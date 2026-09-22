@@ -27,10 +27,16 @@
   .header-top {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     min-height: 44px;
     gap: 0.75rem;
+  }
+
+  /* Acciones a la derecha (absolutas) para que el título quede centrado */
+  .header-actions {
+    position: absolute;
+    right: 0;
   }
 
   .animated-title {

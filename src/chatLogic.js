@@ -56,22 +56,24 @@ if (!response.ok) {
       content: reply,
       time: formatTime(new Date())
     });
-   } catch (error) {
-  console.warn('[Chat] API falló:', error);
+  } catch (error) {
+    console.warn('[Chat] La llamada a la API falló:', error);
 
-  let errorMessage = 'No se pudo conectar con el servidor.';
+    // El personaje solo responde con la API: si falla, se informa el error
+    // (responder.js queda como motor de respuestas locales solo para pruebas)
+    let errorMessage = 'No se pudo conectar con el servidor.';
 
-  if (typeof navigator !== 'undefined' && !navigator.onLine) {
-    errorMessage = 'Sin conexión a Internet.';
-  } else if (error.status === 401) {
-    errorMessage = 'La clave de API no es válida.';
-  } else if (error.status === 403) {
-    errorMessage = 'El servidor rechazó el acceso.';
-  } else if (error.status >= 500) {
-    errorMessage = 'El servidor tiene un problema temporal.';
-  }
+    if (typeof navigator !== 'undefined' && !navigator.onLine) {
+      errorMessage = 'Sin conexión a Internet.';
+    } else if (error.status === 401) {
+      errorMessage = 'La clave de API no es válida.';
+    } else if (error.status === 403) {
+      errorMessage = 'El servidor rechazó el acceso.';
+    } else if (error.status >= 500) {
+      errorMessage = 'El servidor tiene un problema temporal.';
+    }
 
-  onError?.(errorMessage);
+    onError?.(errorMessage);
   } finally {
     onThinking?.(false);
   }

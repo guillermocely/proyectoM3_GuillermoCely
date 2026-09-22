@@ -1,374 +1,241 @@
-🎨 Mockup en Figma: https://www.figma.com/design/4cMFyX2mDDbK252wZbL0JX/Untitled?node-id=0-1&t=D0GZXpg6BWOTiqq4-1
+# Aiflowix 🤖
 
-🚀 Demo en Vercel: https://proyecto-m3-guillermo-cely.vercel.app/
+Chat interactivo con personajes ficticios (Loki, Homer Simpson, Sub-Zero) — SPA responsive con respuestas generadas por Gemini.
 
-# Aiflowix
+🎨 [Mockup en Figma](https://www.figma.com/design/4cMFyX2mDDbK252wZbL0JX/Untitled?node-id=0-1&t=D0GZXpg6BWOTiqq4-1) · 🚀 [Demo en Vercel](https://proyecto-m3-guillermo-cely.vercel.app/)
 
-Aiflowix es una aplicación web de chat interactivo con personajes ficticios y una SPA responsive. El proyecto combina navegación cliente-side, estilos visuales personalizados y una API para generar respuestas con modelos externos.
+## ⚡ Inicio rápido
 
-## Tecnologías Utilizadas
+> Requisito: **Node.js 22 LTS** ([nodejs.org](https://nodejs.org)) · verifica con `node -v`
 
-- **HTML5**: estructura semántica de la aplicación.
-- **CSS3**: estilos visuales y layout responsivo.
-- **JavaScript (ES6 Modules)**: lógica de la SPA, vistas y chat.
-- **Vitest**: framework de pruebas para utilidades y validaciones.
-- **Google Generative AI SDK**: se usa en `api/chat.js` para conectarse directamente a la API de Gemini.
-- **jQuery + jquery.ripples**: efecto visual de agua/ripple (jQuery desde CDN y `jquery.ripples.min.js` local, cargado solo en desktop).
+```bash
+git clone https://github.com/guillermocely/proyectoM3_GuillermoCely.git
+cd proyectoM3_GuillermoCely/Aiflowix
+npm install
+copy .env.example .env        # ← y coloca tu GEMINI_API_KEY dentro
+vercel dev                    # → http://localhost:3000
+```
 
-Nota: el proyecto no usa OpenRouter ni el SDK de `openai`. La integración es directa con Gemini a través de `@google/generative-ai`, usando el modelo `gemini-3.5-flash-lite`.
+Sin API key la vista carga igual con `npm run dev:local` (solo diseño), pero el chat necesita la API para responder.
 
-## Estructura del Proyecto
+🧪 Tests: `npm test` → **17 tests · 3 archivos · todos pasando**
+
+<details>
+<summary>🛠️ Instalación detallada (paso a paso)</summary>
+
+**1. Instalar Node.js 22 LTS** — versión estable con la que se desarrolló y probó el proyecto. Descárgalo de [nodejs.org](https://nodejs.org) y verifica:
+
+```bash
+node -v   # v22.x.x
+npm -v
+```
+
+**2. Clonar el repositorio**
+
+```bash
+git clone https://github.com/guillermocely/proyectoM3_GuillermoCely.git
+cd proyectoM3_GuillermoCely/Aiflowix
+```
+
+**3. Instalar dependencias**
+
+```bash
+npm install
+```
+
+Instala todo lo necesario, incluidas **Vite y Vitest** (motor de pruebas) y el SDK `@google/generative-ai`. No hay que instalar nada más.
+
+**4. Configurar la API key (.env)**
+
+El archivo `.env` **no viene en el repositorio** (está en `.gitignore` por seguridad). Créalo desde la plantilla:
+
+```bash
+copy .env.example .env      # Windows
+# cp .env.example .env      # Linux / macOS
+```
+
+Edítalo con tu clave (gratis en [aistudio.google.com/apikey](https://aistudio.google.com/apikey)):
+
+```env
+GEMINI_API_KEY=tu_api_key_de_gemini
+```
+
+> ⚠️ La clave debe ir **sin espacios ni puntos extra** — una clave que termina en `.` devuelve error 401 (`ACCESS_TOKEN_TYPE_UNSUPPORTED`).
+
+</details>
+
+<details>
+<summary>▶️ Ejecución local</summary>
+
+**Opción recomendada — con API real (Vercel CLI):**
+
+`/api/chat` es una función **serverless**, así que un servidor estático no basta para probar el chat con Gemini:
+
+```bash
+npm install -g vercel    # una sola vez
+vercel dev               # sirve los estáticos Y ejecuta /api/chat
+```
+
+→ http://localhost:3000
+
+**Opción estática (sin API):**
+
+```bash
+npm run dev:local        # o npm start (usa npx serve, puerto 3000)
+```
+
+⚠️ `serve` no ejecuta `/api/chat`: el chat mostrará un error de conexión. Útil solo para revisar diseño y navegación.
+
+</details>
+
+<details>
+<summary>🧪 Testing</summary>
+
+Suite con **Vitest** (incluido en devDependencies; se instala con `npm install`):
+
+```bash
+npm test
+```
+
+**17 tests en 3 archivos** — validan `buildMessages()`, `parseApiResponse()`, `formatTime()`, `escapeHtml()`, `getReply()` (motor de respuestas locales de prueba) y el manejo de errores + envío del historial en `sendChatMessage()`.
+
+**Scripts manuales:**
+- `test-api.js` — verifica el formato del body enviado a `/api/chat` (solo `messages`, `characterId`, `systemInstruction`)
+- `test-gemini.mjs` — chat interactivo en terminal con Gemini: `node test-gemini.mjs`
+
+</details>
+
+<details>
+<summary>📁 Estructura del proyecto</summary>
 
 ```text
 Aiflowix/
 ├── api/
 │   └── chat.js                  # API serverless para Gemini
 ├── css/
-│   ├── base/
-│   │   └── reset.css
-│   ├── barra-navegacion/
-│   │   └── barra-navegacion.css
-│   ├── chat/
-│   │   └── chat.css
-│   ├── cuerpo/
-│   │   └── cuerpo.css
-│   ├── personajes/
-│   │   └── personajes.css
-│   ├── responsive/
-│   │   ├── desktop.css
-│   │   ├── mobile.css
-│   │   └── tablet.css
-│   ├── temas/
-│   │   └── temas.css
+│   ├── base/reset.css
+│   ├── barra-navegacion/barra-navegacion.css
+│   ├── chat/chat.css
+│   ├── cuerpo/cuerpo.css
+│   ├── personajes/personajes.css   # tarjetas + efecto 3D pop
+│   ├── responsive/                 # desktop / mobile / tablet
+│   ├── temas/temas.css
 │   ├── main.css
 │   └── styles.css
-├── docs/
-│   └── imagenes/
-│       ├── homer.png
-│       ├── loki.png
-│       └── sub-zero.png
+├── docs/imagenes/               # homero.png, loki.png, sub-zero.png
 ├── src/
-│   ├── characters/
-│   │   ├── homer-simpson.js
-│   │   ├── loki.js
-│   │   ├── responder.js
-│   │   └── sub-zero.js
-│   ├── router/
-│   │   ├── navigation.js
-│   │   └── router.js
-│   ├── views/
-│   │   ├── about.js
-│   │   ├── characters.js
-│   │   ├── chat.js
-│   │   ├── home.js
-│   │   └── notfound.js
-│   ├── chatLogic.js
-│   ├── main.js
-│   ├── theme.js
+│   ├── characters/              # loki, homer-simpson, sub-zero + responder.js (respuestas locales de prueba)
+│   ├── router/                  # router.js + navigation.js (History API)
+│   ├── views/                   # home, characters, chat, about, notfound
+│   ├── chatLogic.js             # envío a /api/chat + manejo de errores
+│   ├── main.js                  # punto de entrada
+│   ├── theme.js                 # tema oscuro/claro
 │   └── utils.js
-├── tests/
-│   ├── chatLogic.test.js
-│   ├── responder.test.js
-│   └── utils.test.js
-├── .env                        # local, no versionado
-├── .env.example                # plantilla de variables de entorno
-├── .gitignore
+├── tests/                       # chatLogic, responder, utils (17 tests)
+├── .env.example                 # plantilla de variables de entorno
 ├── index.html
-├── jquery.ripples.min.js       # librería local del efecto ripple
-├── package.json
-├── test-api.js                 # script manual de verificación del body enviado a /api/chat
-├── test-gemini.mjs             # chat interactivo de prueba con Gemini (elegís el personaje)
-├── vercel.json                 # config de Vercel (rewrites SPA fallback)
-├── vitest.config.js
-├── README.md
-└── node_modules/              # generado por npm install
+├── jquery.ripples.min.js        # efecto ripple (v0.5.3, local)
+├── vercel.json                  # SPA fallback para Vercel
+└── vitest.config.js
 ```
 
-Nota: la carpeta `.vercel/` no forma parte del repositorio clonado; se genera automáticamente al desplegar el proyecto en Vercel y está incluida en `.gitignore`.
+`node_modules/` y `.env` no están versionados: se generan con `npm install` y el paso 4 de la instalación.
 
-### Descripción de Módulos Principales
+**Módulos clave:**
+- `src/chatLogic.js` — envía el historial a `/api/chat`; si la API falla, informa el error en el chat
+- `api/chat.js` — endpoint serverless con el SDK `@google/generative-ai`
+- `src/characters/` — personalidad (`systemInstruction`) y sugerencias por personaje
 
-- **`src/main.js`**: punto de entrada que inicializa la app, el router y el tema.
-- **`src/router/`**: sistema de navegación SPA con History API.
-- **`src/views/`**: vistas de home, personajes, chat, about y 404.
-- **`src/chatLogic.js`**: se encarga de enviar el historial al endpoint `/api/chat` y manejar el fallback.
-- **`src/theme.js`**: lógica del tema oscuro/claro.
-- **`src/utils.js`**: utilidades de formato y construcción de mensajes.
-- **`src/characters/`**: definiciones del personaje con `systemInstruction`, sugerencias y fallback local.
-- **`api/chat.js`**: endpoint serverless que se conecta a Gemini usando el SDK `@google/generative-ai`.
+</details>
 
-## Instalación
-
-### Requisitos Previos
-
-- Node.js 16 o superior
-- Navegador moderno
-- Git
-- Vercel CLI (recomendado): `npm install -g vercel`
-
-### 1) Clonar el repositorio
-
-```bash
-git clone <URL_DEL_REPO>
-cd Aiflowix
-```
-
-### 2) Instalar dependencias
-
-```bash
-npm install
-```
-
-### 3) Configurar variables de entorno
-
-Crear un archivo `.env` en la raíz del proyecto con la siguiente variable:
-
-```env
-GEMINI_API_KEY=tu_api_key_de_gemini
-```
-
-Importante: la clave real usada por el código es `GEMINI_API_KEY`, no `OPENROUTER_API_KEY`.
-
-El proyecto usa el SDK `@google/generative-ai` con el modelo `gemini-3.5-flash-lite` dentro de `api/chat.js`.
-
-## Ejecución Local
-
-### Opción recomendada: con la API funcionando (Vercel CLI)
-
-La ruta `/api/chat` es una **función serverless**, por eso no alcanza con un servidor de archivos estáticos. Para probar el chat con respuestas reales de Gemini:
-
-#### 1) Instalar Vercel CLI (una sola vez)
-
-```bash
-npm install -g vercel
-```
-
-> Vercel CLI es un paquete **global**: no viene dentro de `package.json`, así que al clonar el repositorio hay que reinstalarlo.
-
-#### 2) Configurar la clave de Gemini
-
-El archivo `.env` **no está versionado** (está en `.gitignore`), así que después de clonar hay que crearlo. Copialo desde la plantilla:
-
-```bash
-copy .env.example .env
-```
-
-Y completalo con tu clave:
-
-```env
-GEMINI_API_KEY=tu_api_key_de_gemini
-```
-
-#### 3) Iniciar el servidor local
-
-```bash
-vercel dev
-```
-
-Se accede en:
-
-```text
-http://localhost:3000
-```
-
-`vercel dev` sirve los archivos estáticos **y** ejecuta la función `/api/chat`.
-
-### Opción estática (sin API)
-
-```bash
-npm run dev:local   # o npm start
-```
-
-Esto levanta el sitio con `npx serve` en el puerto 3000.
-
-⚠️ **Ojo**: `serve` solo sirve archivos estáticos. El chat NO va a responder porque la ruta `/api/chat` no se ejecuta. Usá esta opción solo para ver el diseño sin la API.
-
-## Testing
-
-El proyecto usa Vitest como suite de pruebas.
-
-### Ejecutar tests
-
-```bash
-npm test
-```
-
-La suite actual está en `tests/` (17 tests en 3 archivos) y valida `buildMessages()`, `parseApiResponse()`, `formatTime()`, `escapeHtml()` (utils), `getReply()` (responder) y el envío del historial en `sendChatMessage()`.
-
-### Script manual de prueba
-
-El archivo raíz `test-api.js` es un script manual para verificar el formato del body que se envía a `/api/chat`.
-
-Diferencia con Vitest:
-- `tests/utils.test.js` corre pruebas automatizadas de utilidades.
-- `test-api.js` es una comprobación manual del payload que el cliente envía a la API, y sirve para validar que el body contiene solo `messages`, `characterId` y `systemInstruction`.
-
-Además, `test-gemini.mjs` es un **chat interactivo en la terminal** con Gemini: elegís el personaje (Loki, Homer o Sub-Zero) y conversás directamente con el modelo. Usa un límite de 50 tokens y temperatura 0.6 para no gastar en la versión de prueba:
-
-```bash
-node test-gemini.mjs
-```
-
-## Conexión con la API
-
-El frontend llama al endpoint `/api/chat` desde `src/chatLogic.js`.
-
-### Endpoint: `/api/chat`
+<details>
+<summary>🔌 API: <code>/api/chat</code></summary>
 
 - **Método**: `POST`
 - **Body**:
 
 ```json
 {
-  "messages": [
-    { "role": "system", "content": "instrucción del sistema" },
-    { "role": "user", "content": "mensaje del usuario" }
-  ],
+  "messages": [{ "role": "user", "content": "mensaje" }],
   "characterId": "loki",
-  "systemInstruction": "instrucción específica del personaje"
+  "systemInstruction": "instrucción del personaje"
 }
 ```
 
-- **Respuesta esperada**:
+- **Respuesta**:
 
 ```json
 {
   "reply": "respuesta de la IA",
-  "usage": {
-    "promptTokens": 100,
-    "outputTokens": 50,
-    "totalTokens": 150
-  }
+  "usage": { "promptTokens": 100, "outputTokens": 50, "totalTokens": 150 }
 }
 ```
 
-## Integración con Gemini
+El handler envía a Gemini el historial completo (`user`/`model`) para mantener contexto; la personalidad viaja aparte en `systemInstruction`. Si la llamada falla, el chat muestra un mensaje de error: el personaje solo responde con la API.
 
-La API real del proyecto usa Gemini de forma directa con el SDK `@google/generative-ai`.
+</details>
 
-Lo que existe en código es lo siguiente:
+<details>
+<summary>🤖 Integración con Gemini</summary>
 
-- archivo: `api/chat.js`
-- librería: `@google/generative-ai`
-- proveedor: Google AI (Gemini API)
-- modelo: `gemini-3.5-flash-lite`
-- variable de entorno: `GEMINI_API_KEY`
+- Librería: `@google/generative-ai` (integración directa — no usa OpenRouter ni el SDK de `openai`)
+- Modelo: `gemini-3.5-flash-lite`
+- Variable de entorno: `GEMINI_API_KEY`
+- Config: `maxOutputTokens: 64`, `temperature: 0.6` (respuestas breves, aptas para el free tier)
 
-El handler crea una instancia de `GoogleGenerativeAI` y envía el historial completo de la conversación (turnos `user`/`model`) para que el modelo mantenga el contexto entre mensajes. El prompt de personalidad de cada personaje viaja por separado en `systemInstruction`.
+</details>
 
-Si la llamada falla, el proyecto cae a un respaldo local definido en `src/characters/responder.js` y usa palabras clave/fallback del personaje.
+<details>
+<summary>🗺️ Rutas y vistas</summary>
 
-## Router y Vistas
+| Ruta | Vista |
+|---|---|
+| `/` | Home (`home.js`) |
+| `/characters` | Selección de personajes (`characters.js`) |
+| `/chat?character=loki` | Chat (`chat.js`) |
+| `/about` | Acerca del proyecto (`about.js`) |
+| `*` | 404 (`notfound.js`) |
 
-Aiflowix implementa un sistema de routing personalizado con History API para una SPA sin recargas.
+Routing SPA con History API: `src/router/router.js` mapea rutas y `navigation.js` intercepta los clicks sin recargar la página.
 
-### Sistema de Routing
+</details>
 
-- **`src/router/router.js`**: mapea rutas a vistas.
-- **`src/router/navigation.js`**: intercepta clicks para navegar sin recargar la página.
+<details>
+<summary>✨ Características y detalles técnicos</summary>
 
-### Rutas Disponibles
+- **SPA responsiva** (mobile, tablet, desktop) con navegación sin recargas
+- **Efecto 3D en tarjetas**: la tarjeta queda fija y el personaje "sale" del marco al hacer hover, con pedestal de color por personaje (CSS puro, con soporte `prefers-reduced-motion`)
+- **Temas dark/light** con persistencia
+- **Manejo de errores**: si la API falla (sin conexión, cuota agotada, key inválida), el chat informa el problema en la conversación
+- **Historial persistente** por personaje + indicadores "En línea" / "Escribiendo..."
+- **Efecto ripple** de agua con jQuery (`jquery.ripples.min.js` local) — solo desktop (`min-width: 768px` y `pointer: fine`)
 
-- `/` - Home
-- `/characters` - selección de personajes
-- `/chat?character=loki` - chat con personaje específico
-- `/about` - información del proyecto
-- `*` - 404
+</details>
 
-### Vistas
+<details>
+<summary>☁️ Despliegue en Vercel</summary>
 
-- **`home.js`**: vista inicial y CTA.
-- **`characters.js`**: grid de personajes con efecto flip.
-- **`chat.js`**: interfaz de chat, historial, estado de escritura y menú.
-- **`about.js`**: información del proyecto.
-- **`notfound.js`**: vista para rutas inexistentes.
+**Opción A — Dashboard:** subir el repo a GitHub → [vercel.com](https://vercel.com) → Add New Project → Import → en **Environment Variables** agregar `GEMINI_API_KEY` → Deploy.
 
-## Efecto Visual de Agua (Ripple)
-
-La interfaz incluye un efecto visual de agua/ripple implementado con jQuery y la librería `jquery.ripples`, guardada como archivo local en la raíz del proyecto (`jquery.ripples.min.js`, v0.5.3) y cargada en `index.html`:
-
-```html
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="jquery.ripples.min.js"></script>
-```
-
-El efecto solo se activa en **desktop** (pantallas de 768px o más con mouse, `pointer: fine`), para evitar puntos blancos y problemas de scroll táctil en móviles.
-
-## Despliegue
-
-### Vercel
-
-El proyecto está pensado para desplegarse en Vercel. La carpeta `.vercel/` es un artefacto generado por la plataforma y no forma parte del repositorio clonado (está en `.gitignore`). Vercel detecta automáticamente la carpeta `api/` como funciones serverless.
-
-El archivo `vercel.json` agrega un **SPA fallback**: las rutas sin extensión (`/about`, `/characters`, `/chat?...`) se sirven con `index.html` para que el router del frontend funcione al entrar directo o recargar. Las rutas `/api/*` y los archivos con extensión quedan excluidas del rewrite.
-
-#### Opción A: Desde el dashboard (recomendada)
-
-1. Subir el repositorio a GitHub (`git push`).
-2. Entrar en [vercel.com](https://vercel.com) → **Add New Project** → **Import** el repositorio.
-3. En **Environment Variables**, agregar:
-   - `GEMINI_API_KEY` = tu clave de Gemini
-4. Click en **Deploy**.
-
-#### Opción B: Desde la terminal (Vercel CLI)
+**Opción B — CLI:**
 
 ```bash
-# 1) Instalar el CLI (una sola vez)
 npm install -g vercel
-
-# 2) Iniciar sesión (abre el navegador)
 vercel login
-
-# 3) Vincular la carpeta del proyecto (solo la primera vez)
 vercel link
-
-# 4) Agregar la variable de entorno en producción
 vercel env add GEMINI_API_KEY production
-
-# 5) Deploy a preview
-vercel
-
-# 6) Deploy a producción
-vercel --prod
+vercel            # preview
+vercel --prod     # producción
 ```
 
-#### Verificar el deploy
+`vercel.json` agrega el SPA fallback: las rutas sin extensión se sirven con `index.html`; `/api/*` y archivos con extensión quedan excluidos del rewrite.
 
-- Abrir la URL del proyecto y probar el chat con un personaje.
-- La ruta `/api/chat` debe responder:
-
-```text
-POST https://<tu-proyecto>.vercel.app/api/chat
-```
-
-#### Variables de entorno
-
-- `GEMINI_API_KEY`: clave de acceso a la API de Google Gemini (se usa en `api/chat.js`).
-
-Importante: la clave debe ir **sin espacios ni puntos extra**. Una clave que termina con un `.` devuelve error 401 (`ACCESS_TOKEN_TYPE_UNSUPPORTED`).
-
-## Capturas de Pantalla
-
-La sección de capturas no está completa en este repositorio. No existen archivos en `docs/screenshots/`, y el proyecto actual solo incluye imágenes en `docs/imagenes/` para los avatares del personaje.
-
-Estado actual: **pendiente**.
-
-## Características Principales
-
-- **SPA responsiva**: navegación sin recargas completas.
-- **Sistema de temas**: toggle visual dark/light con persistencia.
-- **Chat con personajes**: cada personaje tiene personalidad y `systemInstruction`.
-- **Integración con Gemini**: respuestas generadas por el modelo `gemini-3.5-flash-lite` con contexto completo de la conversación.
-- **Fallback local**: si falla la API, la lógica usa reglas predefinidas del personaje.
-- **Historial persistente**: almacenamiento local del historial por personaje.
-- **Indicadores de estado**: "En línea" y "Escribiendo...".
-- **Efecto ripple**: fondo con interacción de agua visual.
-- **Testing**: suite con Vitest y script manual de validación del payload.
+</details>
 
 ## Licencia
 
-Este proyecto es privado y de uso educativo.
+Proyecto privado y de uso educativo.
 
-## Autor
+## 👨‍💻 Desarrollador
 
-Guillermo Cely - Proyecto M3
+**Guillermo Efren Cely** — Proyecto M3

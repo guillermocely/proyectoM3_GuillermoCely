@@ -106,6 +106,11 @@
     height: 470px;
   }
 
+  /* Desde tablet en adelante se restaura el despegue completo del efecto 3D */
+  .character-card:hover .character-avatar img {
+    transform: translateX(-50%) translateY(-46px) scale(1.22);
+  }
+
   /* Chat responsive */
   .chat-shell {
     width: min(calc(100% - 2.5rem), 420px);

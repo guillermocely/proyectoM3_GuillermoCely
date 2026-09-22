@@ -56,19 +56,21 @@ describe('sendChatMessage', () => {
     expect(capturedBody.systemInstruction).toBe('Eres Loki, Dios de la Astucia');
   });
 
-  it('usa respuesta local (fallback) si la API falla, sin romper la conversación', async () => {
+  it('no responde el personaje si la API falla: notifica el error (solo funciona con la API)', async () => {
     global.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
 
-    let received = null;
+    let reply = null;
+    let apiError = null;
     await sendChatMessage({
       history: [{ role: 'user', content: 'Hola' }],
       character,
       onThinking: () => {},
-      onReply: (msg) => { received = msg; }
+      onReply: (msg) => { reply = msg; },
+      onError: (msg) => { apiError = msg; }
     });
 
-    expect(received).not.toBeNull();
-    expect(received.role).toBe('assistant');
-    expect(typeof received.content).toBe('string');
+    expect(reply).toBeNull();
+    expect(apiError).not.toBeNull();
+    expect(typeof apiError).toBe('string');
   });
 });

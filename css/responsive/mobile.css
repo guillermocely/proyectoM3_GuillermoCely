@@ -136,6 +136,12 @@ main {
   min-height: 380px;
 }
 
+/* En móvil se reduce el despegue del efecto 3D para que el personaje
+   no quede tapado por la barra de navegación al hacer hover */
+.character-card:hover .character-avatar img {
+  transform: translateX(-50%) translateY(-14px) scale(1.08);
+}
+
 .chat-shell {
   width: min(calc(100% - 1.5rem), 100%);
   max-height: calc(100vh - (var(--header-offset) + 36px));
